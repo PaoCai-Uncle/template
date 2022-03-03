@@ -60,7 +60,7 @@ const noFoundRoute = {
     icon: '',
     keepAlive: true,
   },
-  component: () => import(/* webpackChunkName: 'Login' */ '../views/NoFound.vue'),
+  component: () => import(/* webpackChunkName: 'NoFound' */ '../views/NoFound.vue'),
 };
 
 const collectKeepAliveRoutes: Array<string> = [];
@@ -119,7 +119,6 @@ router.beforeEach(async (to, from, next) => {
 
 router.afterEach(to => {
   document.title = to.meta?.title;
-  console.log(to, 'after');
   AppModule.updateRecentVisitList(to);
 });
 
@@ -131,8 +130,9 @@ function deepForEachMenu(menu: Array<MenuItem>, parentRouter: RouteConfig[] | un
     Array.isArray(menuItem.children)
     && menuItem.children.length
     && deepForEachMenu(menuItem.children, localRouter?.children);
+ 
 
-    menuItem.type === 1 && setComponent(menuItem, localRouter) && collectFlatMenuList.push(menuItem);
+    setComponent(menuItem, localRouter) && collectFlatMenuList.push(menuItem);
 
     menuItem.meta && menuItem.meta.keepAlive && collectKeepAliveRoutes.push(menuItem.name);
   }
@@ -140,9 +140,22 @@ function deepForEachMenu(menu: Array<MenuItem>, parentRouter: RouteConfig[] | un
 
 function setComponent(menuItem: MenuItem, localRouterItem: RouteConfig | any) {
   try {
-    menuItem.component = localRouterItem ? localRouterItem.component : Home;
-    return true;
-  } catch (e) { console.log(e, '可能没有找到视图路径'); }
+    switch (menuItem.type) {
+      // 视图(业务视图、自定义路由视图)
+      case 1:
+        menuItem.component = localRouterItem ? localRouterItem.component : Home;
+      break;
+      case 0:
+        // 默认的嵌套路由
+        menuItem.component = { render: (h) => h('router-view') };
+      break;
+    }
+    
+    return menuItem.type === 1;
+  } catch (e) {
+    console.log(e, '可能没有找到视图路径');
+    return false;
+  }
 }
 
 const localRouters: Array<any> = [];

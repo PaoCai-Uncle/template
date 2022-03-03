@@ -23,7 +23,6 @@ import Tabbar from '../Tabbar/Tabbar.vue';
 export default class extends Vue {
   
   get keepAliveNames() {
-    console.log(AppModule.keepAliveNames, 'keepAliveNames');
     return AppModule.keepAliveNames;
   }
 }

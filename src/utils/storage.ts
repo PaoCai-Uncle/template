@@ -6,7 +6,7 @@ class WebStorage {
 
   getItem = (key: string) => {
     if (!key) {
-      console.warn('no key');
+      this.nokey();
       return;
     }
     return this.storage.getItem(key) || '';
@@ -14,7 +14,7 @@ class WebStorage {
 
   setItem = (key: string, value: object | string) => {
     if (!key) {
-      console.warn('no key');
+      this.nokey();
       return;
     }
     this.storage.setItem(key, typeof value === 'object' ? JSON.stringify(value) : value);
@@ -22,7 +22,7 @@ class WebStorage {
 
   removeItem = (key: string) => {
     if (!key) {
-      console.warn('no key');
+      this.nokey();
       return;
     }
     this.storage.removeItem(key);
@@ -30,10 +30,14 @@ class WebStorage {
 
   clear(key: string) {
     if (!key) {
-      console.warn('no key');
+      this.nokey();
       return;
     }
     this.storage.clear();
+  }
+
+  nokey() {
+    console.warn('no key');
   }
 }
 

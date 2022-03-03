@@ -25,7 +25,7 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 
 ### 解决scrollBar 导入报错问题
 1. 在node_moodules/element-ui/types下面添加一个scrollbar.d.ts的文件
-```js
+```ts
 import { VNodeDirective } from 'vue'
 
 export interface ElScrollbar extends VNodeDirective {
@@ -35,7 +35,7 @@ export interface ElScrollbar extends VNodeDirective {
 ```
 
 2. 在node_moodules/element-ui/types/element-ui.d.ts的文件当中引入、并抛出
-```js
+```ts
 import { ElScrollbar } from './ElScrollbar'
 
 export const Scrollbar: PluginObject<ElScrollbar>

@@ -51,7 +51,6 @@ export default class extends Vue {
   }
 
   handleSelect(item: any) {
-    console.log(item);
     const { name } = this.$route;
     if (item.name === name) return;
     this.$router.push({ name: item.name });

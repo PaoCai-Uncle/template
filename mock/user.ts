@@ -3,6 +3,39 @@ export default (mock: MockAdapter) => {
   mock.onPost('/menuList').reply(() => {
     return [200, { data: { list: [
       {
+        name: 'SystemManagement',
+        path: 'systemManagement',
+        redirect: { name: 'UserManagement' },
+        meta: {
+          title: '系统管理',
+          keepAlive: true,
+          icon: ''
+        },
+        type: 0,
+        children: [
+          {
+            name: 'MenuConfiguration',
+            path: 'menuConfiguration',
+            meta: {
+              title: '菜单管理',
+              icon: '',
+              keepAlive: true
+            },
+            type: 1
+          },
+          {
+            name: 'UserManagement',
+            path: 'userManagement',
+            meta: {
+              title: '用户管理',
+              icon: '',
+              keepAlive: true
+            },
+            type: 1
+          }
+        ]
+      },
+      {
         name: 'About',
         path: 'about',
         meta: {

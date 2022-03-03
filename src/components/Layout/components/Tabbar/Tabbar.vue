@@ -14,7 +14,7 @@
           @click="toggleTab(tab)"
         >
           <span class="tab-list-item-title">{{ tab.meta.title }}</span>
-          <i class="el-icon-close" @click.stop="closeTab(index, tab)" />
+          <i v-if="tab.name !== 'Home'" class="el-icon-close" @click.stop="closeTab(index, tab)" />
         </li>
       </ul>
     </div>
@@ -111,7 +111,6 @@ export default class extends Vue {
   }
 
   toggleSidebar() {
-    console.log(AppModule.sidebar.opened);
     AppModule.toggleSidebar(!AppModule.sidebar.opened);
   }
 
