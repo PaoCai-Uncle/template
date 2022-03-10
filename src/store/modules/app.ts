@@ -5,6 +5,11 @@ import store from '@/store';
 import _ from 'lodash';
 import { lStorage } from '@/utils/storage';
 
+interface BasicRect {
+  width: number;
+  height: number;
+}
+
 export interface IAppState {
   sidebar: {
     opened: boolean
@@ -14,6 +19,7 @@ export interface IAppState {
   keepAliveNames: Array<string>;
   tabNavList: Array<any>;
   recentVisitList: Array<any>;
+  viewClientRect: DOMRect | BasicRect
 }
 
 let recentVisitList: Array<any> = [];
@@ -50,6 +56,8 @@ class App extends VuexModule implements IAppState {
       }
     }
   ];
+
+  viewClientRect = { width: 0, height: 0 }
 
   @Mutation
   updateRecentVisitList({ name, meta, path }: any) {
@@ -108,6 +116,11 @@ class App extends VuexModule implements IAppState {
     return null;
   }
 
+  @Mutation
+  updateViewClientRect(rect: DOMRect | BasicRect) {
+    this.viewClientRect = rect;
+  }
+
   @Action
   async getMenuList() {
     if (process.env.VUE_APP_USE_LOCAL_MENU === '1') {
@@ -125,6 +138,18 @@ class App extends VuexModule implements IAppState {
         return _.cloneDeep(list);
       }
     } catch (e) {}
+  }
+
+  @Action
+  async setViewContainerClientRect() {
+    let clientRect = { height: 0, width: 0 };
+    
+    try {
+      const vContiner = document.getElementById('view-container');
+      clientRect = vContiner ? vContiner.getBoundingClientRect() : { height: 0, width: 0 };
+    } catch (e) {}
+    this.updateViewClientRect(clientRect);
+    return clientRect;
   }
 }
 

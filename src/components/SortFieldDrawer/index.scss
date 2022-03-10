@@ -1,0 +1,78 @@
+.filter-field-drawer {
+    height: 100%;
+    .el-drawer__header {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 12px;
+
+        >span {
+            text-align: left;
+        }
+    }
+
+    .el-drawer__body {
+        display: flex;
+        flex-direction: column;
+        padding: 0 20px 10px;
+        overflow: hidden;
+    }
+
+    .item {
+        padding: 8px 16px 8px 4px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        &.ghost {
+            opacity: 0;
+        }
+
+        &.default {
+            cursor: not-allowed;
+            color: #d7d9de;
+            .el-checkbox__label {
+                color: #d7d9de;
+            }
+            .el-checkbox .el-checkbox__input.is-checked .el-checkbox__inner {
+                background: #9bbffa;
+                border-color: #9bbffa;
+                &:after {
+                    content: '';
+                    border-color: #fff;
+                }
+            }
+        }
+        .operation-line {
+            width: 12px;
+            height: 12px;
+            background: url("~@/assets/images/move.png");
+            background-size: 100%;
+        }
+    }
+
+    .chosen {
+        box-shadow: 0px 0px 6px #ccc;
+        background-color: #fff;
+    }
+
+    .filter-field-drawer-body {
+        display: flex;
+        flex: 1;
+        flex-direction: column;
+        .sub-desc {
+            line-height: 24px;
+        }
+
+        .el-scrollbar {
+            flex: 1;
+        }
+        .el-scrollbar__wrap {
+            overflow-x: hidden;
+        }
+    }
+
+    .drawer-footer {
+        padding-right: 10px;
+        text-align: right;
+    }
+}

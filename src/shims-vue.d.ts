@@ -5,7 +5,7 @@ declare module 'vue/types/vue' {
   interface Vue {
     $router: VueRouter;
     $route: Route;
-    $$refs: any
+    $refs: any
 
     $showSuccess: any;
     $showError: any;

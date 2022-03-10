@@ -2,6 +2,7 @@
 $fontSize: 12px;
 $fontColor: #1d1d29;
 $backgroundColor: #f2f3f7;
+$viewBgColor: #FFF;
 
 $menuActiveBlock: #185cf6;
 
@@ -49,4 +50,5 @@ $navBarFontSize: 16px;
     fontSize: $fontSize;
     fontColor: $fontColor;
     logoWidth: $logoWidth;
+    viewBgColor: $viewBgColor
 }

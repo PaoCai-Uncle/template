@@ -1,7 +1,7 @@
 <template>
   <div class="app-main">
     <Tabbar />
-    <el-scrollbar>
+    <el-scrollbar id="view-container" class="view-container">
       <transition mode="out-in" name="slide-fade">
         <keep-alive :include="keepAliveNames">
           <router-view />
@@ -14,6 +14,7 @@
 import { Vue, Component } from 'vue-property-decorator';
 import { AppModule } from '@/store/modules/app';
 import Tabbar from '../Tabbar/Tabbar.vue';
+import { debounce } from 'lodash';
 @Component({
   name: 'Container',
   components: {
@@ -24,6 +25,23 @@ export default class extends Vue {
   
   get keepAliveNames() {
     return AppModule.keepAliveNames;
+  }
+
+  windowResize() {
+    console.log('init resze');
+  }
+
+  mounted() {
+    AppModule.setViewContainerClientRect();
+    this.windowResize = debounce(() => {
+      AppModule.setViewContainerClientRect();
+    }, 300);
+
+    window.addEventListener('resize', this.windowResize, false);
+  }
+
+  beforeDestroy() {
+    window.removeEventListener('resize', this.windowResize, false);
   }
 }
 </script>
@@ -38,10 +56,15 @@ export default class extends Vue {
     right: 0px;
   }
 
-  .el-scrollbar {
+  >.el-scrollbar {
     flex: 1;
     overflow-y: auto;
     background-color: #f2f2f2;
+
+    >.el-scrollbar__wrap>.el-scrollbar__view:first-child {
+      padding: 10px;
+      box-sizing: border-box;
+    }
   }
 
   .slide-fade-enter-active {

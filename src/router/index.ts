@@ -131,7 +131,6 @@ function deepForEachMenu(menu: Array<MenuItem>, parentRouter: RouteConfig[] | un
     && menuItem.children.length
     && deepForEachMenu(menuItem.children, localRouter?.children);
  
-
     setComponent(menuItem, localRouter) && collectFlatMenuList.push(menuItem);
 
     menuItem.meta && menuItem.meta.keepAlive && collectKeepAliveRoutes.push(menuItem.name);
